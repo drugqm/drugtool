@@ -1,14 +1,15 @@
 b.trend=function(trend_result=NA,trend_date=NA,trend_room=NA,trend_point=NA,trend_alert=NA,trend_action=NA,point.choose=NA,limit=FALSE,add=F,start.date=(Sys.Date()-360),end.date=Sys.Date(),days=180,t.title=NA,side.legend="right"){
 #############Upate information#############
+#' Version 3.2.3 tune the position of legend and modify the plot type from "b"ã€€to "o", reset the symbol size to make it consistant.
 #' Version 3.2.2, add point type(pch parameter)
 #' Version 3.2.1, remove the presentation of data.
-#' Version 3.2.0, modify code to management the plot device£¬creat a device just before plot.
+#' Version 3.2.0, modify code to management the plot deviceÂ£Â¬creat a device just before plot.
 #' Reorganized the code struction. Simplify the Code. Optimized the logitical.
 #############format layout##############
    opar=par(no.readonly=T)
    invisible(dev.off())
    if(add){
-      png()
+      pdf()
       if(side.legend=="right")  par(fig=c(0,0.8,0,1),cex.axis=0.8)
       else if(side.legend=="below") par(fig=c(0,1,0.1,1),cex.axis=0.8)
       else print("Option right or below can be choose")  
@@ -73,17 +74,17 @@ b.trend=function(trend_result=NA,trend_date=NA,trend_room=NA,trend_point=NA,tren
     pchlist<-rep(0:25,times=2)
 #' Plot acoording to sample point
     if(is.na(trend_room[1])){
-       plot(trend_data$trend_date[trend_data$trend_point==plotlist[1]],trend_data$trend_result[trend_data$trend_point==plotlist[1]],xaxt="n",type="b",xlim=c(range(trend_data$trend_date)[1],range(trend_data$trend_date)[2]),ylim=c(0,ymax*1.2),xlab="",ylab="",cex=0.8,col=1,pch=pchlist[1])
+       plot(trend_data$trend_date[trend_data$trend_point==plotlist[1]],trend_data$trend_result[trend_data$trend_point==plotlist[1]],xaxt="n",type="o",xlim=c(range(trend_data$trend_date)[1],range(trend_data$trend_date)[2]),ylim=c(0,ymax*1.2),xlab="",ylab="",cex=0.8,col=1,pch=pchlist[1])
        for(i in 1:(listlength-1)){
-           lines(trend_data$trend_date[trend_data$trend_point==plotlist[i+1]],trend_data$trend_result[trend_data$trend_point==plotlist[i+1]],xlab="",ylab="",type="b",col=i+1,pch=pchlist[i+1])      
+           lines(trend_data$trend_date[trend_data$trend_point==plotlist[i+1]],trend_data$trend_result[trend_data$trend_point==plotlist[i+1]],xlab="",ylab="",type="o",col=i+1,pch=pchlist[i+1],cex=0.8)      
     }
     axis.Date(1,trend_data$trend_date,format="%Y-%m-%d",las=2,at=x.interval,cex=0.8)
     }
 #' Plot acoording to room
     else{
-        plot(trend_data$trend_date[trend_data$trend_room==plotlist[1]],trend_data$trend_result[trend_data$trend_room==plotlist[1]],xaxt="n",type="b",xlim=c(range(trend_data$trend_date)[1],range(trend_data$trend_date)[2]),ylim=c(0,ymax*1.2),xlab="",ylab="",cex=0.8,col=1,pch=pchlist[1])
+        plot(trend_data$trend_date[trend_data$trend_room==plotlist[1]],trend_data$trend_result[trend_data$trend_room==plotlist[1]],xaxt="n",type="o",xlim=c(range(trend_data$trend_date)[1],range(trend_data$trend_date)[2]),ylim=c(0,ymax*1.2),xlab="",ylab="",cex=0.8,col=1,pch=pchlist[1])
         for(i in 1:(listlength-1)){
-            lines(trend_data$trend_date[trend_data$trend_room==plotlist[i+1]],trend_data$trend_result[trend_data$trend_room==plotlist[i+1]],xlab="",ylab="",type="b",col=i+1,pch=pchlist[i+1])      
+            lines(trend_data$trend_date[trend_data$trend_room==plotlist[i+1]],trend_data$trend_result[trend_data$trend_room==plotlist[i+1]],xlab="",ylab="",type="o",col=i+1,pch=pchlist[i+1],cex=0.8)      
     }
     axis.Date(1,trend_data$trend_date,format="%Y-%m-%d",las=2,at=x.interval,cex=0.8)
     }
@@ -105,7 +106,7 @@ b.trend=function(trend_result=NA,trend_date=NA,trend_room=NA,trend_point=NA,tren
        }
      }
 #' Legend
-     if(side.legend=="right")  par(fig=c(0.7,1,0,1))
+     if(side.legend=="right")  par(fig=c(0.73,1,0,1))
      else {
        if(side.legend=="below") {
          par(fig=c(0,1,0,0.1))
